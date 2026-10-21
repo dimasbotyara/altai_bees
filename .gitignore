@@ -1,0 +1,22 @@
+# Байт-код / кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения
+venv/
+env/
+.venv/
+
+# Flask / Django (переменные, БД, логи)
+instance/
+*.log
+db.sqlite3
+db.sqlite3-journal
+
+# Прочее
+.DS_Store
+*.so
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐝 Алтай. Пчёлы. Мёд 🍯</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Канвас для частиц -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Контейнер для летающих пчёл -->
+    <div id="bees-container"></div>
+
+    <!-- Контейнер для следа за курсором -->
+    <div id="cursor-trail"></div>
+
+    <!-- Основной контент -->
+    <div class="main-wrapper">
+        <div class="honey-drip-top"></div>
+
+        <header class="header">
+            <div class="logo-bee">🐝</div>
+            <h1 class="glitch" data-text="Алтай. Пчёлы. Мёд">
+                <span class="word" data-word="алтай">Алтай</span><span class="dot">.</span>
+                <span class="word" data-word="пчёлы">Пчёлы</span><span class="dot">.</span>
+                <span class="word" data-word="мёд">Мёд</span>
+            </h1>
+            <p class="subtitle">🏔️ Нажми на любое слово, чтобы узнать правду 🍯</p>
+        </header>
+
+        <div class="cards-section">
+            <div class="card card-altai" data-word="алтай">
+                <div class="card-emoji">🏔️</div>
+                <h2>Алтай</h2>
+                <p>Горы, реки, красота неземная</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="card card-bees" data-word="пчёлы">
+                <div class="card-emoji">🐝</div>
+                <h2>Пчёлы</h2>
+                <p>Жужжат, летают, жалят, трудятся</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="card card-honey" data-word="мёд">
+                <div class="card-emoji">🍯</div>
+                <h2>Мёд</h2>
+                <p>Сладкий, золотой, вечный</p>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <div class="fun-facts">
+            <h2 class="section-title">🎉 Весёлые факты</h2>
+            <div class="facts-grid">
+                <div class="fact-item">
+                    <span class="fact-emoji">🧮</span>
+                    <p>Для 1 кг мёда пчёлы облетают <strong>2 миллиона</strong> цветков</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">✈️</span>
+                    <p>Пчела летает со скоростью <strong>24 км/ч</strong> — быстрее самоката</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">👀</span>
+                    <p>У пчелы <strong>5 глаз</strong>. Пять. ПЯТЬ. 👁️👁️👁️👁️👁️</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">💃</span>
+                    <p>Пчёлы общаются <strong>танцами</strong>. Буквально танцуют, чтобы показать где цветы</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Сделано с 🍯 и 🐝 на Алтае</p>
+            <div class="footer-bees">🐝🐝🐝🐝🐝</div>
+        </footer>
+    </div>
+
+    <!-- Оверлей -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <button class="overlay-close" id="overlay-close">✕</button>
+            <div class="overlay-emojis" id="overlay-emojis"></div>
+            <h2 class="overlay-title" id="overlay-title"></h2>
+            <div class="overlay-text" id="overlay-text"></div>
+            <div class="overlay-decoration">
+                <span>🐝</span><span>🍯</span><span>🏔️</span><span>🌸</span><span>🐝</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bees.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cursor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
+</body>
+</html>
