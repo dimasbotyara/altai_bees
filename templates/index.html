@@ -8,79 +8,88 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Канвас для частиц -->
     <canvas id="particleCanvas"></canvas>
-
-    <!-- Контейнер для летающих пчёл -->
     <div id="bees-container"></div>
-
-    <!-- Контейнер для следа за курсором -->
     <div id="cursor-trail"></div>
 
-    <!-- Основной контент -->
     <div class="main-wrapper">
         <div class="honey-drip-top"></div>
 
         <header class="header">
             <div class="logo-bee">🐝</div>
-            <h1 class="glitch" data-text="Алтай. Пчёлы. Мёд">
+            <h1 class="hero-title">
                 <span class="word" data-word="алтай">Алтай</span><span class="dot">.</span>
                 <span class="word" data-word="пчёлы">Пчёлы</span><span class="dot">.</span>
                 <span class="word" data-word="мёд">Мёд</span>
             </h1>
-            <p class="subtitle">🏔️ Нажми на любое слово, чтобы узнать правду 🍯</p>
+            <p class="subtitle">🏔️ Алтай. 🐝 Пчёлы. 🍯 Мёд.</p>
         </header>
 
         <div class="cards-section">
             <div class="card card-altai" data-word="алтай">
                 <div class="card-emoji">🏔️</div>
                 <h2>Алтай</h2>
-                <p>Горы, реки, красота неземная</p>
+                <p>Горы, реки и медведи, которые не платят налоги</p>
                 <div class="card-glow"></div>
             </div>
             <div class="card card-bees" data-word="пчёлы">
                 <div class="card-emoji">🐝</div>
                 <h2>Пчёлы</h2>
-                <p>Жужжат, летают, жалят, трудятся</p>
+                <p>Трудоголики с жалом и чувством собственного достоинства</p>
                 <div class="card-glow"></div>
             </div>
             <div class="card card-honey" data-word="мёд">
                 <div class="card-emoji">🍯</div>
                 <h2>Мёд</h2>
-                <p>Сладкий, золотой, вечный</p>
+                <p>Сладкое золото. Работает без срока годности</p>
                 <div class="card-glow"></div>
             </div>
         </div>
 
         <div class="fun-facts">
-            <h2 class="section-title">🎉 Весёлые факты</h2>
+            <h2 class="section-title">🎉 Факты, которые ты не просил</h2>
             <div class="facts-grid">
                 <div class="fact-item">
                     <span class="fact-emoji">🧮</span>
-                    <p>Для 1 кг мёда пчёлы облетают <strong>2 миллиона</strong> цветков</p>
+                    <p>Для 1 кг мёда пчёлы облетают <strong>2 миллиона</strong> цветков. Ты за день даже до магазина не дойдёшь</p>
                 </div>
                 <div class="fact-item">
                     <span class="fact-emoji">✈️</span>
-                    <p>Пчела летает со скоростью <strong>24 км/ч</strong> — быстрее самоката</p>
+                    <p>Пчела летает со скоростью <strong>24 км/ч</strong> — быстрее твоего самоката и без штрафов</p>
                 </div>
                 <div class="fact-item">
                     <span class="fact-emoji">👀</span>
-                    <p>У пчелы <strong>5 глаз</strong>. Пять. ПЯТЬ. 👁️👁️👁️👁️👁️</p>
+                    <p>У пчелы <strong>5 глаз</strong>. ПЯТЬ. И она всё равно влетает в твоё окно 👁️👁️👁️👁️👁️</p>
                 </div>
                 <div class="fact-item">
                     <span class="fact-emoji">💃</span>
-                    <p>Пчёлы общаются <strong>танцами</strong>. Буквально танцуют, чтобы показать где цветы</p>
+                    <p>Пчёлы общаются <strong>танцами</strong>. Буквально. Твой кумир на дискотеке — любитель</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">🏺</span>
+                    <p>Мёд <strong>не портится никогда</strong>. Найден в пирамидах — 3000 лет, и всё ещё годен. Твой йогурт так не умеет</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">🥄</span>
+                    <p>Одна пчела за жизнь делает <strong>1/12 чайной ложки</strong> мёда. А ты жалуешься на свою работу</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">🐝</span>
+                    <p>Пчёлы <strong>запоминают лица</strong>. Та пчела из детства, которую ты обидел, всё ещё помнит</p>
+                </div>
+                <div class="fact-item">
+                    <span class="fact-emoji">👑</span>
+                    <p>У пчёл <strong>демократия</strong> при выборе нового дома. Голосуют танцами. Серьёзно</p>
                 </div>
             </div>
         </div>
 
         <footer class="footer">
-            <p>Сделано с 🍯 и 🐝 на Алтае</p>
+            <p>Сделано с 🍯 и 🐝. Пчёлы работали сверхурочно</p>
             <div class="footer-bees">🐝🐝🐝🐝🐝</div>
         </footer>
     </div>
 
-    <!-- Оверлей -->
     <div id="overlay" class="overlay">
         <div class="overlay-content">
             <button class="overlay-close" id="overlay-close">✕</button>

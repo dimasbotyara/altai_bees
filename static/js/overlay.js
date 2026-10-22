@@ -11,10 +11,9 @@
     const overlayEmojis = document.getElementById('overlay-emojis');
     const overlayClose = document.getElementById('overlay-close');
 
-    // Все кликабельные элементы со словами
     const clickableWords = document.querySelectorAll('[data-word]');
 
-    // Звуковой эффект жужжания (Web Audio API)
+    // Звуковой эффект жужжания
     function playBuzz() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -35,17 +34,16 @@
             oscillator.start();
             oscillator.stop(audioCtx.currentTime + 0.3);
         } catch (e) {
-            // Не все браузеры поддерживают Web Audio API
+            // Web Audio API может быть недоступен
         }
     }
 
-    // Открытие оверлея
-    async function openOverlay(word) {
+    async function openOverlay(word, originEvent) {
         playBuzz();
 
-        // Конфетти на месте клика
-        if (window.spawnConfetti) {
-            const rect = event.target.getBoundingClientRect();
+        // Конфетти из точки клика
+        if (window.spawnConfetti && originEvent) {
+            const rect = originEvent.currentTarget.getBoundingClientRect();
             window.spawnConfetti(
                 rect.left + rect.width / 2,
                 rect.top + rect.height / 2,
@@ -54,7 +52,9 @@
         }
 
         try {
-            const response = await fetch(`/api/definition/${encodeURIComponent(word)}`);
+            // cache-bust + no-store, чтобы всегда получать случайный вариант
+            const url = `/api/definition/${encodeURIComponent(word)}?_=${Date.now()}`;
+            const response = await fetch(url, { cache: 'no-store' });
             const data = await response.json();
 
             if (data.error) {
@@ -63,22 +63,20 @@
                 overlayEmojis.textContent = '😢😢😢';
             } else {
                 overlayTitle.textContent = data.title;
-                overlayText.textContent = data.text;
                 overlayEmojis.textContent = data.emoji;
+                // Печатаем текст через typewriter
+                typewriterEffect(overlayText, data.text);
             }
 
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            // Анимация печатания текста
-            typewriterEffect(overlayText, data.text);
-
         } catch (err) {
             console.error('Ошибка загрузки:', err);
             overlayTitle.textContent = '🐝 Упс!';
             overlayText.textContent = 'Пчёлы съели данные. Попробуйте ещё раз!';
             overlayEmojis.textContent = '🐝🐝🐝';
             overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
     }
 
@@ -86,13 +84,12 @@
     function typewriterEffect(element, text) {
         element.textContent = '';
         let index = 0;
-        const speed = 15; // мс на символ
+        const speed = 12;
 
         function type() {
             if (index < text.length) {
                 element.textContent += text.charAt(index);
                 index++;
-                // Быстрее для пробелов
                 const delay = text.charAt(index - 1) === ' ' ? speed / 2 : speed;
                 setTimeout(type, delay);
             }
@@ -101,50 +98,33 @@
         type();
     }
 
-    // Закрытие оверлея
     function closeOverlay() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
 
-        // Конфетти при закрытии
         if (window.spawnConfetti) {
             window.spawnConfetti(window.innerWidth / 2, window.innerHeight / 2, 40);
         }
     }
 
-    // Обработчики событий
+    // Обработчики клика на слова
     clickableWords.forEach(el => {
         el.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             const word = el.getAttribute('data-word');
-            openOverlay(word);
-        });
-
-        // Эффект при наведении
-        el.addEventListener('mouseenter', () => {
-            el.style.transition = 'transform 0.2s';
-            if (el.classList.contains('card')) {
-                // Для карточек - bounce эффект
-                el.style.animation = 'none';
-                setTimeout(() => {
-                    el.style.animation = '';
-                }, 10);
-            }
+            openOverlay(word, e);
         });
     });
 
-    // Закрытие по кнопке
     overlayClose.addEventListener('click', closeOverlay);
 
-    // Закрытие по клику на фон
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
             closeOverlay();
         }
     });
 
-    // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
             closeOverlay();
@@ -164,15 +144,14 @@
             konamiIndex++;
             if (konamiIndex === konamiCode.length) {
                 konamiIndex = 0;
-                // СУПЕРЭФФЕКТ!
                 document.body.style.animation = 'rainbow 1s linear infinite';
                 if (window.spawnConfetti) {
                     for (let i = 0; i < 10; i++) {
                         setTimeout(() => {
                             window.spawnConfetti(
                                 Math.random() * window.innerWidth,
-                                Math.random() * window.innerHeight,
-                                30
+                                                 Math.random() * window.innerHeight,
+                                                 30
                             );
                         }, i * 200);
                     }
@@ -186,7 +165,7 @@
         }
     });
 
-    // ============ ДВОЙНОЙ КЛИК - ДОЖДЬ ИЗ ПЧЁЛ ============
+    // ============ ДВОЙНОЙ КЛИК — ДОЖДЬ ИЗ ПЧЁЛ ============
     document.addEventListener('dblclick', (e) => {
         const emojis = ['🐝', '🍯', '🌸', '🏔️', '⭐', '🌻', '💛'];
         for (let i = 0; i < 20; i++) {
@@ -202,7 +181,8 @@
             document.body.appendChild(emoji);
 
             requestAnimationFrame(() => {
-                emoji.style.transform = `translate(${(Math.random() - 0.5) * 300}px, ${(Math.random() - 0.5) * 300}px) rotate(${Math.random() * 720}deg)`;
+                emoji.style.transform =
+                `translate(${(Math.random() - 0.5) * 300}px, ${(Math.random() - 0.5) * 300}px) rotate(${Math.random() * 720}deg)`;
                 emoji.style.opacity = '0';
             });
 
